@@ -23,6 +23,10 @@ jobs:
           mkdir appsrc
           unzip FizLab_GitHub_APK_Builder.zip -d appsrc
 
+      - name: Fix Java and Kotlin versions
+        run: |
+          find appsrc -type f \( -name "*.gradle" -o -name "*.gradle.kts" \) -exec sed -i 's/VERSION_1_8/VERSION_17/g; s/jvmTarget = "1.8"/jvmTarget = "17"/g; s/jvmTarget = "1.8"/jvmTarget = "17"/g' {} +
+
       - name: Build APK
         run: cd appsrc && gradle assembleDebug
 
